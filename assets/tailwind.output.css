@@ -7,8 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-green-300: oklch(87.1% 0.15 154.449);
-    --color-white: #fff;
+    --color-blue-500: oklch(62.3% 0.214 259.815);
     --spacing: 0.25rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -195,6 +194,9 @@
   .block {
     display: block;
   }
+  .flex {
+    display: flex;
+  }
   .grid {
     display: grid;
   }
@@ -204,11 +206,20 @@
   .table {
     display: table;
   }
-  .h-64 {
-    height: calc(var(--spacing) * 64);
+  .h-96 {
+    height: calc(var(--spacing) * 96);
+  }
+  .h-\[30rem\] {
+    height: 30rem;
+  }
+  .h-\[60rem\] {
+    height: 60rem;
   }
   .w-full {
     width: 100%;
+  }
+  .max-w-\[1200px\] {
+    max-width: 1200px;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
@@ -219,6 +230,12 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .items-center {
+    align-items: center;
+  }
+  .justify-center {
+    justify-content: center;
+  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -227,11 +244,11 @@
   .overflow-hidden {
     overflow: hidden;
   }
-  .bg-green-300 {
-    background-color: var(--color-green-300);
+  .bg-blue-500 {
+    background-color: var(--color-blue-500);
   }
-  .text-white {
-    color: var(--color-white);
+  .text-center {
+    text-align: center;
   }
   .capitalize {
     text-transform: capitalize;
