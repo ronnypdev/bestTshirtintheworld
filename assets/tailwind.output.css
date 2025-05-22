@@ -7,12 +7,9 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-white: #fff;
-    --spacing: 0.25rem;
     --font-weight-normal: 400;
     --font-weight-bold: 700;
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -168,9 +165,6 @@
   .visible {
     visibility: visible;
   }
-  .absolute {
-    position: absolute;
-  }
   .fixed {
     position: fixed;
   }
@@ -204,9 +198,6 @@
   .block {
     display: block;
   }
-  .flex {
-    display: flex;
-  }
   .grid {
     display: grid;
   }
@@ -228,29 +219,14 @@
   .max-w-\[1200px\] {
     max-width: 1200px;
   }
-  .flex-1 {
-    flex: 1;
-  }
   .flex-auto {
     flex: auto;
-  }
-  .flex-shrink {
-    flex-shrink: 1;
-  }
-  .flex-grow {
-    flex-grow: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .resize {
     resize: both;
-  }
-  .flex-col {
-    flex-direction: column;
   }
   .flex-wrap {
     flex-wrap: wrap;
@@ -261,9 +237,6 @@
   .justify-between {
     justify-content: space-between;
   }
-  .justify-center {
-    justify-content: center;
-  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -271,19 +244,6 @@
   }
   .overflow-hidden {
     overflow: hidden;
-  }
-  .border {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-  .bg-\[\#3a354d\] {
-    background-color: #3a354d;
-  }
-  .bg-\[\#50d71e\] {
-    background-color: #50d71e;
-  }
-  .bg-blue-500 {
-    background-color: var(--color-blue-500);
   }
   .text-center {
     text-align: center;
@@ -315,10 +275,6 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .ring {
-    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
@@ -335,28 +291,14 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-  .ease-in-out {
-    --tw-ease: var(--ease-in-out);
-    transition-timing-function: var(--ease-in-out);
-  }
   .max-md\:flex-col {
     @media (width < 48rem) {
-      flex-direction: column;
-    }
-  }
-  .sm\:flex-col {
-    @media (width >= 40rem) {
       flex-direction: column;
     }
   }
   .md\:flex {
     @media (width >= 48rem) {
       display: flex;
-    }
-  }
-  .md\:text-white {
-    @media (width >= 48rem) {
-      color: var(--color-white);
     }
   }
 }
@@ -379,11 +321,6 @@
 @property --tw-skew-y {
   syntax: "*";
   inherits: false;
-}
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
 }
 @property --tw-font-weight {
   syntax: "*";
@@ -512,10 +449,6 @@
   syntax: "*";
   inherits: false;
 }
-@property --tw-ease {
-  syntax: "*";
-  inherits: false;
-}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -524,7 +457,6 @@
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
-      --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
@@ -554,7 +486,6 @@
       --tw-drop-shadow-color: initial;
       --tw-drop-shadow-alpha: 100%;
       --tw-drop-shadow-size: initial;
-      --tw-ease: initial;
     }
   }
 }
