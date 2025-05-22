@@ -1,4 +1,4 @@
-{% render 'hero-tshirt-content', hero_text: section.settings.hero_text, hero_image: section.settings.hero_image, hero_background_color: section.settings.hero_background_color %}
+{% render 'hero-tshirt-content', hero_text: section.settings.hero_text, sub_header: section.settings.sub_header_text, hero_image: section.settings.hero_image, hero_background_color: section.settings.hero_background_color %}
 
 {% schema %}
 {
@@ -8,6 +8,11 @@
       "type": "text",
       "id": "hero_text",
       "label": "Hero Text"
+    },
+    {
+      "type": "text",
+      "id": "sub_header_text",
+      "label": "Sub Header Text"
     },
     {
       "type": "image_picker",
