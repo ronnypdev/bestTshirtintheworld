@@ -1,0 +1,41 @@
+{% render 'hero-tshirt-content', hero_text: section.settings.hero_text, sub_header: section.settings.sub_header_text, hero_image: section.settings.hero_image, hero_background_color: section.settings.hero_background_color %}
+
+{% schema %}
+{
+  "name": "Hero T-shirt",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_text",
+      "label": "Hero Text"
+    },
+    {
+      "type": "text",
+      "id": "sub_header_text",
+      "label": "Sub Header Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "color_background",
+      "id": "hero_background_color",
+      "label": "Hero Background Color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero T-shirt",
+      "settings": {
+        "hero_text": "Hero Text",
+        "hero_background_color": "#53eafd"
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}
