@@ -9,12 +9,11 @@
   TODO: 7-) build the product compare at price and price
 {% endcomment %}
 
-
   <div class="product-card-tshirt-container">
     <div class="product-card-tshirt-image">
       <div class="relative">
-        <img src="https://cdn.shopify.com/s/files/1/0620/2275/7519/files/tshirt-1.png?v=1671679246" alt="T-shirt Image" width="300" height="300">
-        <span class="font-mono text-blood-orange text-lg">On Sale!</span>
+         {{ product_t_card.featured_image | image_url: width: 326 | image_tag: class: "w-full h-full object-cover", width: 326, height: 326, alt: product_t_card.featured_image.alt | escape }}
+        <span class="font-mono text-blood-orange text-lg">{{ sale_text }}</span>
       </div>
     </div>
     <div class="product-card-tshirt-colors">
@@ -23,11 +22,11 @@
       <div class="product-card-tshirt-color-swatch"></div>
     </div>
     <div class="product-card-tshirt-content">
-      <p class="text-gray-500">Good Brand Company</p>
-      <h3 class="text-xl font-bold">Plain T-Shirt</h3>
+      <p class="text-gray-500">{{ product_t_card.content }}</p>
+      <h3 class="text-xl font-bold">{{ product_t_card.title }}</h3>
       <div class="product-card-tshirt-price">
-        <span class="text-gray-500 line-through">$29.50</span>
-        <span class="text-lg font-bold">$20.00</span>
+        <span class="text-gray-500 line-through">{{ product_t_card.compare_at_price }}</span>
+        <span class="text-lg font-bold">{{ product_t_card.price }}</span>
       </div>
     </div>
   </div>

@@ -273,6 +273,9 @@
   .bg-navy {
     background-color: var(--color-navy);
   }
+  .object-cover {
+    object-fit: cover;
+  }
   .text-center {
     text-align: center;
   }
