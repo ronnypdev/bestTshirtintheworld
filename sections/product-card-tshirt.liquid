@@ -4,3 +4,45 @@
   TODO: 3-) As a customer, I can see a secondary image for my selected variant by hovering over the product card
   TODO: 4-) As a customer, I can see the product title, brand name, and pricing information
 {% endcomment %}
+
+<section class="product-card-tshirt-section">
+  <h2 class="text-2xl text-navy">{{ section.settings.product_t_card_title }}</h2>
+  {% render 'product-card-tshirt-content',  product_t_card: product, sale_text: section.settings.on_sale_text %}
+</section>
+
+{% schema %}
+{
+  "name": "Product Card T-Shirt",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_t_card_title",
+      "label": "Product Card Section Title",
+      "default": "Product Card T-Shirt"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select T-Shirt Product"
+    },
+    {
+      "type": "text",
+      "id": "on_sale_text",
+      "label": "On Sale Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Card T-Shirt",
+      "category": "Product Card",
+      "settings": {
+        "product_t_card_title": "Product Card T-Shirt",
+        "on_sale_text": "On Sale!"
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}

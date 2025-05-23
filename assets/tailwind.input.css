@@ -1,1 +1,5 @@
 @import 'tailwindcss';
+@theme {
+  --color-navy: #19264b;
+  --color-blood-orange: #ff0000;
+}
