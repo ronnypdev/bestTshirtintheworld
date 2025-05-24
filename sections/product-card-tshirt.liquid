@@ -5,9 +5,49 @@
   TODO: 4-) As a customer, I can see the product title, brand name, and pricing information
 {% endcomment %}
 
+{% unless product.has_only_default_variant %}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- assign product_t_card = section.settings.product -%}
+{%  assign sale_text =  section.settings.on_sale_text -%}
+
 <section class="product-card-tshirt-section w-full h-[70rem] py-16 flex flex-col items-center justify-between">
-  <h2 class="text-2xl text-center font-mono font-bold uppercase text-navy">{{ section.settings.product_t_card_title }}</h2>
-  {% render 'product-card-tshirt-content',  product_t_card: section.settings.product, sale_text: section.settings.on_sale_text %}
+  <h2 class="text-2xl text-center font-mono font-bold uppercase text-navy">
+    {{ section.settings.product_t_card_title }}
+  </h2>
+  {% comment %} {% render 'product-card-tshirt-content',  product_t_card: section.settings.product, sale_text: section.settings.on_sale_text %} {% endcomment %}
+
+  <div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5">
+    <div class="product-card-tshirt-image relative border-1 border-grey-500 p-2 rounded-md mb-2.5">
+        {% unless product_t_card.featured_media == blank %}
+          {{ product_t_card.featured_media | image_url: width: 326 | image_tag: class: "object-fit", height: 326, alt: product_t_card.featured_image.alt | escape }}
+        {% endunless %}
+        <span class="text-[1.375rem] leading-4 font-franklin font-semibold text-blood-orange border-1 border-blood-orange rounded-full p-3 absolute top-2 left-9">{{ sale_text }}</span>
+    </div>
+    <div class="product-card-tshirt-colors flex items-center justify-start gap-4 py-6 mb-2.5">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+          {%- when 'variant_picker' -%}
+            {% render 'product-variant-picker', product: product_t_card, block: block, product_form_id: product_form_id %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div class="product-card-tshirt-content">
+      <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
+      <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
+      <div class="product-card-tshirt-price">
+        <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
+        <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 {% schema %}
@@ -29,6 +69,55 @@
       "type": "text",
       "id": "on_sale_text",
       "label": "On Sale Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "id": "swatch_shape",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.label",
+          "type": "select",
+          "info": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.info",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__2.label"
+            },
+            {
+              "value": "none",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__3.label"
+            }
+          ],
+          "default": "circle"
+        }
+      ]
     }
   ],
   "presets": [
