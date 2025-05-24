@@ -10,7 +10,7 @@
 {% endcomment %}
 
   <div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5">
-    <div class="product-card-tshirt-image relative border-1 border-grey-500 rounded-md mb-2.5">
+    <div class="product-card-tshirt-image relative border-1 border-grey-500 p-2 rounded-md mb-2.5">
         {% unless product_t_card.featured_media == blank %}
           {{ product_t_card.featured_media | image_url: width: 326 | image_tag: class: "object-fit", height: 326, alt: product_t_card.featured_image.alt | escape }}
         {% endunless %}
