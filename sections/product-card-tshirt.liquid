@@ -5,9 +5,9 @@
   TODO: 4-) As a customer, I can see the product title, brand name, and pricing information
 {% endcomment %}
 
-<section class="product-card-tshirt-section">
-  <h2 class="text-2xl text-navy">{{ section.settings.product_t_card_title }}</h2>
-  {% render 'product-card-tshirt-content',  product_t_card: product, sale_text: section.settings.on_sale_text %}
+<section class="product-card-tshirt-section w-full h-[70rem] py-16 flex flex-col items-center justify-between">
+  <h2 class="text-2xl text-center font-mono font-bold uppercase text-navy">{{ section.settings.product_t_card_title }}</h2>
+  {% render 'product-card-tshirt-content',  product_t_card: section.settings.product, sale_text: section.settings.on_sale_text %}
 </section>
 
 {% schema %}

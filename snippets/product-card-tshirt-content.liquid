@@ -9,24 +9,23 @@
   TODO: 7-) build the product compare at price and price
 {% endcomment %}
 
-  <div class="product-card-tshirt-container">
-    <div class="product-card-tshirt-image">
-      <div class="relative">
-         {{ product_t_card.featured_image | image_url: width: 326 | image_tag: class: "w-full h-full object-cover", width: 326, height: 326, alt: product_t_card.featured_image.alt | escape }}
-        <span class="font-mono text-blood-orange text-lg">{{ sale_text }}</span>
-      </div>
+  <div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5">
+    <div class="product-card-tshirt-image relative border-1 border-grey-500 rounded-md mb-2.5">
+        {% unless product_t_card.featured_media == blank %}
+          {{ product_t_card.featured_media | image_url: width: 326 | image_tag: class: "object-fit", height: 326, alt: product_t_card.featured_image.alt | escape }}
+        {% endunless %}
+        <span class="text-[1.375rem] leading-4 font-franklin font-semibold text-blood-orange border-1 border-blood-orange rounded-full p-3 absolute top-2 left-9">{{ sale_text }}</span>
     </div>
-    <div class="product-card-tshirt-colors">
-      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-navy rounded-full"></div>
-      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-blood-orange rounded-full"></div>
-      <div class="product-card-tshirt-color-swatch"></div>
+    <div class="product-card-tshirt-colors flex items-center justify-center gap-4 py-6 mb-2.5">
+      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-navy rounded-full"><span></span></div>
+      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-blood-orange rounded-full"><span></span></div>
     </div>
     <div class="product-card-tshirt-content">
-      <p class="text-gray-500">{{ product_t_card.content }}</p>
-      <h3 class="text-xl font-bold">{{ product_t_card.title }}</h3>
+      <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
+      <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
       <div class="product-card-tshirt-price">
-        <span class="text-gray-500 line-through">{{ product_t_card.compare_at_price }}</span>
-        <span class="text-lg font-bold">{{ product_t_card.price }}</span>
+        <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
+        <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
       </div>
     </div>
   </div>

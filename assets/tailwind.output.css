@@ -1,4 +1,5 @@
 /*! tailwindcss v4.1.7 | MIT License | https://tailwindcss.com */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -10,6 +11,10 @@
     --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-white: #fff;
     --spacing: 0.25rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
@@ -17,13 +22,20 @@
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --font-weight-normal: 400;
+    --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --radius-md: 0.375rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --color-navy: #19264b;
     --color-blood-orange: #ff0000;
+    --color-grey-500: #e8e8e8;
+    --color-product-card-text: #111111;
+    --color-product-card-accent: #0a4874;
+    --font-franklin: 'Libre Franklin', sans-serif;
+    --font-roboto: 'Roboto', sans-serif;
   }
 }
 @layer base {
@@ -175,6 +187,9 @@
   .visible {
     visibility: visible;
   }
+  .absolute {
+    position: absolute;
+  }
   .fixed {
     position: fixed;
   }
@@ -183,6 +198,12 @@
   }
   .static {
     position: static;
+  }
+  .top-2 {
+    top: calc(var(--spacing) * 2);
+  }
+  .left-9 {
+    left: calc(var(--spacing) * 9);
   }
   .isolate {
     isolation: isolate;
@@ -208,8 +229,14 @@
   .mx-auto {
     margin-inline: auto;
   }
+  .mb-2\.5 {
+    margin-bottom: calc(var(--spacing) * 2.5);
+  }
   .block {
     display: block;
+  }
+  .flex {
+    display: flex;
   }
   .grid {
     display: grid;
@@ -226,11 +253,20 @@
   .h-\[60rem\] {
     height: 60rem;
   }
+  .h-\[70rem\] {
+    height: 70rem;
+  }
+  .h-\[452px\] {
+    height: 452px;
+  }
   .h-full {
     height: 100%;
   }
   .w-5 {
     width: calc(var(--spacing) * 5);
+  }
+  .w-\[315px\] {
+    width: 315px;
   }
   .w-full {
     width: 100%;
@@ -247,6 +283,9 @@
   .resize {
     resize: both;
   }
+  .flex-col {
+    flex-direction: column;
+  }
   .flex-wrap {
     flex-wrap: wrap;
   }
@@ -255,6 +294,12 @@
   }
   .justify-between {
     justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
   }
   .truncate {
     overflow: hidden;
@@ -267,32 +312,106 @@
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
+  .rounded-md {
+    border-radius: var(--radius-md);
+  }
+  .border-1 {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-2 {
+    border-style: var(--tw-border-style);
+    border-width: 2px;
+  }
+  .border-blood-orange {
+    border-color: var(--color-blood-orange);
+  }
+  .border-grey-500 {
+    border-color: var(--color-grey-500);
+  }
   .bg-blood-orange {
     background-color: var(--color-blood-orange);
   }
   .bg-navy {
     background-color: var(--color-navy);
   }
-  .object-cover {
-    object-fit: cover;
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
+  .p-3\.5 {
+    padding: calc(var(--spacing) * 3.5);
+  }
+  .py-6 {
+    padding-block: calc(var(--spacing) * 6);
+  }
+  .py-16 {
+    padding-block: calc(var(--spacing) * 16);
   }
   .text-center {
     text-align: center;
   }
+  .font-franklin {
+    font-family: var(--font-franklin);
+  }
   .font-mono {
     font-family: var(--font-mono);
+  }
+  .font-roboto {
+    font-family: var(--font-roboto);
   }
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
   }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
+  .text-\[0\.875rem\] {
+    font-size: 0.875rem;
+  }
+  .text-\[1\.375rem\] {
+    font-size: 1.375rem;
+  }
+  .leading-4 {
+    --tw-leading: calc(var(--spacing) * 4);
+    line-height: calc(var(--spacing) * 4);
+  }
+  .leading-8 {
+    --tw-leading: calc(var(--spacing) * 8);
+    line-height: calc(var(--spacing) * 8);
+  }
+  .leading-11 {
+    --tw-leading: calc(var(--spacing) * 11);
+    line-height: calc(var(--spacing) * 11);
+  }
+  .leading-12 {
+    --tw-leading: calc(var(--spacing) * 12);
+    line-height: calc(var(--spacing) * 12);
+  }
+  .leading-14 {
+    --tw-leading: calc(var(--spacing) * 14);
+    line-height: calc(var(--spacing) * 14);
+  }
+  .leading-\[1\.125rem\] {
+    --tw-leading: 1.125rem;
+    line-height: 1.125rem;
+  }
+  .leading-\[1rem\] {
+    --tw-leading: 1rem;
+    line-height: 1rem;
   }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
@@ -302,6 +421,10 @@
     --tw-font-weight: var(--font-weight-normal);
     font-weight: var(--font-weight-normal);
   }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
   .text-blood-orange {
     color: var(--color-blood-orange);
   }
@@ -310,6 +433,12 @@
   }
   .text-navy {
     color: var(--color-navy);
+  }
+  .text-product-card-accent {
+    color: var(--color-product-card-accent);
+  }
+  .text-product-card-text {
+    color: var(--color-product-card-text);
   }
   .text-white {
     color: var(--color-white);
@@ -374,6 +503,15 @@
   inherits: false;
 }
 @property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
   syntax: "*";
   inherits: false;
 }
@@ -512,6 +650,8 @@
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-border-style: solid;
+      --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;

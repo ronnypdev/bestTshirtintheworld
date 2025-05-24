@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import 'tailwindcss';
+
 @theme {
   --color-navy: #19264b;
   --color-blood-orange: #ff0000;
+  --color-grey-500: #e8e8e8;
+  --color-product-card-text: #111111;
+  --color-product-card-accent: #0a4874;
+
+  --font-franklin: 'Libre Franklin', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
 }
