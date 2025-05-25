@@ -24,7 +24,7 @@
      id="product-card-{{ section.id }}">
   <div class="product-card-tshirt-image relative border border-grey-500 p-2 rounded-md mb-2.5 overflow-hidden group cursor-pointer">
       {% unless product_t_card.featured_media == blank %}
-        <!-- Primary Image -->
+
         <img
           id="product-image-{{ section.id }}"
           src="{{ product_t_card.featured_media | image_url: width: 326 }}"
@@ -35,10 +35,9 @@
           data-product-id="{{ product_t_card.id }}"
         >
 
-        <!-- Secondary Image (Hidden by default, shown on hover) -->
         <img
           id="product-image-secondary-{{ section.id }}"
-          src="{% if product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 }}{% else %}{{ product_t_card.featured_media | image_url: width: 326 }}{% endif %}" 
+          src="{% if product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 }}{% else %}{{ product_t_card.featured_media | image_url: width: 326 }}{% endif %}"
           class="absolute inset-0 object-cover w-full h-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
           width="326"
           height="326"
@@ -79,10 +78,36 @@
 <script type="application/json" id="variant-images-{{ section.id }}">
 {
   {% for variant in product_t_card.variants %}
+    {% comment %} Get the variant color (assuming it's option1) {% endcomment %}
+    {% assign variant_color = variant.option1 | downcase %}
+    {% assign secondary_img = null %}
+
+    {% comment %} Look for secondary image by matching color in ALT text {% endcomment %}
+    {% for media in product_t_card.media %}
+      {% assign media_alt = media.alt | downcase %}
+      {% comment %} Check if this image matches the variant color and is a back view {% endcomment %}
+      {% if media_alt contains variant_color and media_alt contains 'back' and media.id != variant.featured_image.id %}
+        {% assign secondary_img = media %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} If no back view found, look for any other image with same color {% endcomment %}
+    {% if secondary_img == null %}
+      {% for media in product_t_card.media %}
+        {% assign media_alt = media.alt | downcase %}
+        {% if media_alt contains variant_color and media.id != variant.featured_image.id %}
+          {% assign secondary_img = media %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
     "{{ variant.id }}": {
       "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
-      "secondary_image": {% assign secondary_image = product_t_card.media | where: 'alt', variant.title | first %}{% if secondary_image and secondary_image != variant.featured_image %}{{ secondary_image | image_url: width: 326 | json }}{% elsif product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
+      "secondary_image": {% if secondary_img %}{{ secondary_img | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
       "alt": {{ variant.featured_image.alt | default: variant.title | default: product_t_card.title | json }},
+      "secondary_alt": {% if secondary_img %}{{ secondary_img.alt | json }}{% else %}{{ variant.featured_image.alt | default: variant.title | default: product_t_card.title | json }}{% endif %},
       "title": {{ variant.title | json }},
       "option1": {{ variant.option1 | json }},
       "option2": {{ variant.option2 | json }},

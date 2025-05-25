@@ -1,4 +1,3 @@
-// Add this to a new file: assets/product-card-variant-switcher.js
 class ProductCardVariantSwitcher {
   constructor(sectionId) {
     this.sectionId = sectionId;
@@ -27,7 +26,7 @@ class ProductCardVariantSwitcher {
       return;
     }
 
-    if (!this.productImage) {
+    if (!this.productImage || !this.secondaryImage) {
       return;
     }
 
@@ -102,17 +101,18 @@ class ProductCardVariantSwitcher {
   }
 
   updateImages(variantId) {
-    if (this.variantData[variantId] && this.productImage) {
+    if (
+      this.variantData[variantId] &&
+      this.productImage &&
+      this.secondaryImage
+    ) {
       // Update primary image
       this.productImage.src = this.variantData[variantId].featured_image;
       this.productImage.alt = this.variantData[variantId].alt;
 
-      // Update secondary image if it exists
-      if (this.secondaryImage && this.variantData[variantId].secondary_image) {
-        this.secondaryImage.src = this.variantData[variantId].secondary_image;
-        this.secondaryImage.alt =
-          this.variantData[variantId].alt + ' - Secondary View';
-      }
+      // Update secondary image
+      this.secondaryImage.src = this.variantData[variantId].secondary_image;
+      this.secondaryImage.alt = this.variantData[variantId].secondary_alt;
     }
   }
 }
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '.product-card-tshirt-section'
   );
 
-  productCards.forEach((card, index) => {
+  productCards.forEach((card) => {
     // Get the section ID from the card's ID attribute
     let sectionId =
       card.id || card.dataset.sectionId || card.getAttribute('data-section-id');
