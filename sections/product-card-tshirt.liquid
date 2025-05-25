@@ -23,8 +23,8 @@
      data-section-id="{{ section.id }}"
      id="product-card-{{ section.id }}">
   <div class="product-card-tshirt-image relative border border-grey-500 p-2 rounded-md mb-2.5 overflow-hidden group cursor-pointer">
+    <a href="{{ product_t_card.url }}">
       {% unless product_t_card.featured_media == blank %}
-
         <img
           id="product-image-{{ section.id }}"
           src="{{ product_t_card.featured_media | image_url: width: 326 }}"
@@ -48,6 +48,7 @@
       {%- if product_t_card.compare_at_price > product_t_card.price and product_t_card.available -%}
         <span class="on-sale-badge-text">{{ sale_text }}</span>
       {%- endif -%}
+    </a>
   </div>
 
   <div class="product-card-tshirt-colors flex items-center justify-start gap-4 py-6 mb-2.5" data-section="{{ section.id }}">
@@ -64,12 +65,14 @@
   </div>
 
   <div class="product-card-tshirt-content">
-    <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
-    <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
-    <div class="product-card-tshirt-price">
-      <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
-      <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
-    </div>
+    <a href="{{ product_t_card.url }}">
+      <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
+      <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
+      <div class="product-card-tshirt-price">
+        <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
+        <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
+      </div>
+    </a>
   </div>
 </div>
 
