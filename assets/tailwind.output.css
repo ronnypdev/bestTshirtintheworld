@@ -246,9 +246,6 @@
   .h-\[60rem\] {
     height: 60rem;
   }
-  .h-\[70rem\] {
-    height: 70rem;
-  }
   .h-\[452px\] {
     height: 452px;
   }
@@ -275,9 +272,6 @@
   }
   .resize {
     resize: both;
-  }
-  .flex-col {
-    flex-direction: column;
   }
   .flex-wrap {
     flex-wrap: wrap;
@@ -338,9 +332,6 @@
   }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
-  }
-  .py-16 {
-    padding-block: calc(var(--spacing) * 16);
   }
   .text-center {
     text-align: center;
@@ -446,6 +437,35 @@
       display: flex;
     }
   }
+}
+.form__label {
+  display: none;
+}
+.product-card-tshirt-section {
+  display: flex;
+  height: 70rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: calc(var(--spacing) * 16);
+}
+.on-sale-badge-text {
+  position: absolute;
+  top: calc(var(--spacing) * 2);
+  left: calc(var(--spacing) * 9);
+  border-radius: calc(infinity * 1px);
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: var(--color-blood-orange);
+  padding: calc(var(--spacing) * 3);
+  font-family: var(--font-franklin);
+  font-size: 1.375rem;
+  --tw-leading: calc(var(--spacing) * 4);
+  line-height: calc(var(--spacing) * 4);
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-blood-orange);
 }
 @property --tw-rotate-x {
   syntax: "*";

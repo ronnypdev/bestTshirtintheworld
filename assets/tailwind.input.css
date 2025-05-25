@@ -12,3 +12,15 @@
   --font-franklin: 'Libre Franklin', sans-serif;
   --font-roboto: 'Roboto', sans-serif;
 }
+
+.form__label {
+  @apply hidden;
+}
+
+.product-card-tshirt-section {
+  @apply w-full h-[70rem] py-16 flex flex-col items-center justify-between;
+}
+
+.on-sale-badge-text {
+  @apply text-[1.375rem] leading-4 font-franklin font-semibold text-blood-orange border-1 border-blood-orange rounded-full p-3 absolute top-2 left-9;
+}
