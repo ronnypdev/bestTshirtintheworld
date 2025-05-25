@@ -22,19 +22,33 @@
 <div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5"
      data-section-id="{{ section.id }}"
      id="product-card-{{ section.id }}">
-  <div class="product-card-tshirt-image relative border-1 border-grey-500 p-2 rounded-md mb-2.5">
+  <div class="product-card-tshirt-image relative border border-grey-500 p-2 rounded-md mb-2.5 overflow-hidden group cursor-pointer">
       {% unless product_t_card.featured_media == blank %}
+        <!-- Primary Image -->
         <img
           id="product-image-{{ section.id }}"
           src="{{ product_t_card.featured_media | image_url: width: 326 }}"
-          class="object-fit"
+          class="object-cover w-full h-full transition-opacity duration-300 ease-in-out group-hover:opacity-0"
           width="326"
           height="326"
           alt="{{ product_t_card.featured_image.alt | escape }}"
           data-product-id="{{ product_t_card.id }}"
         >
+
+        <!-- Secondary Image (Hidden by default, shown on hover) -->
+        <img
+          id="product-image-secondary-{{ section.id }}"
+          src="{% if product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 }}{% else %}{{ product_t_card.featured_media | image_url: width: 326 }}{% endif %}" 
+          class="absolute inset-0 object-cover w-full h-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+          width="326"
+          height="326"
+          alt="{% if product_t_card.media[1] %}{{ product_t_card.media[1].alt | escape }}{% else %}{{ product_t_card.featured_image.alt | escape }}{% endif %}"
+          data-product-id="{{ product_t_card.id }}"
+        >
       {% endunless %}
-      <span class="on-sale-badge-text">{{ sale_text }}</span>
+      {%- if product_t_card.compare_at_price > product_t_card.price and product_t_card.available -%}
+        <span class="on-sale-badge-text">{{ sale_text }}</span>
+      {%- endif -%}
   </div>
 
   <div class="product-card-tshirt-colors flex items-center justify-start gap-4 py-6 mb-2.5" data-section="{{ section.id }}">
@@ -67,6 +81,7 @@
   {% for variant in product_t_card.variants %}
     "{{ variant.id }}": {
       "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
+      "secondary_image": {% assign secondary_image = product_t_card.media | where: 'alt', variant.title | first %}{% if secondary_image and secondary_image != variant.featured_image %}{{ secondary_image | image_url: width: 326 | json }}{% elsif product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
       "alt": {{ variant.featured_image.alt | default: variant.title | default: product_t_card.title | json }},
       "title": {{ variant.title | json }},
       "option1": {{ variant.option1 | json }},
@@ -75,11 +90,6 @@
     }{% unless forloop.last %},{% endunless %}
   {% endfor %}
 }
-</script>
-
-{% comment %} Also add product variants data for easier matching {% endcomment %}
-<script type="application/json" id="product-variants-{{ section.id }}">
-  {{ product_t_card.variants | json }}
 </script>
 
 <script src="{{ 'product-card-variant-switcher.js' | asset_url }}" defer></script>

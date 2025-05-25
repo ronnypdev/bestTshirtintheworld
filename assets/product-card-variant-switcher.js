@@ -9,6 +9,9 @@ class ProductCardVariantSwitcher {
     this.productImage = document.getElementById(
       `product-image-${this.cleanSectionId}`
     );
+    this.secondaryImage = document.getElementById(
+      `product-image-secondary-${this.cleanSectionId}`
+    );
 
     // Try both possible IDs for the variant data
     let variantDataElement = document.getElementById(
@@ -80,7 +83,7 @@ class ProductCardVariantSwitcher {
   handleVariantChange(input) {
     // Method 1: Try direct variant ID match
     if (this.variantData[input.value]) {
-      this.updateImage(input.value);
+      this.updateImages(input.value);
       return;
     }
 
@@ -92,16 +95,24 @@ class ProductCardVariantSwitcher {
         variantInfo.title &&
         variantInfo.title.toLowerCase().includes(colorName.toLowerCase())
       ) {
-        this.updateImage(variantId);
+        this.updateImages(variantId);
         return;
       }
     }
   }
 
-  updateImage(variantId) {
+  updateImages(variantId) {
     if (this.variantData[variantId] && this.productImage) {
+      // Update primary image
       this.productImage.src = this.variantData[variantId].featured_image;
       this.productImage.alt = this.variantData[variantId].alt;
+
+      // Update secondary image if it exists
+      if (this.secondaryImage && this.variantData[variantId].secondary_image) {
+        this.secondaryImage.src = this.variantData[variantId].secondary_image;
+        this.secondaryImage.alt =
+          this.variantData[variantId].alt + ' - Secondary View';
+      }
     }
   }
 }
