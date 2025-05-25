@@ -1,1 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import 'tailwindcss';
+
+@theme {
+  --color-navy: #19264b;
+  --color-blood-orange: #ff0000;
+  --color-grey-500: #e8e8e8;
+  --color-product-card-text: #111111;
+  --color-product-card-accent: #0a4874;
+
+  --font-franklin: 'Libre Franklin', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+.form__label {
+  @apply hidden;
+}
+
+.product-card-tshirt-section {
+  @apply w-full h-[70rem] py-16 flex flex-col items-center justify-between;
+}
+
+.on-sale-badge-text {
+  @apply text-[1.375rem] leading-4 font-franklin font-semibold text-blood-orange border-1 border-blood-orange rounded-full p-3 absolute top-2 left-9;
+}

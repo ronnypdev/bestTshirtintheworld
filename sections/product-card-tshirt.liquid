@@ -1,0 +1,205 @@
+{% unless product.has_only_default_variant %}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- assign product_t_card = section.settings.product -%}
+{%  assign sale_text =  section.settings.on_sale_text -%}
+
+<h2 class="text-2xl text-center font-mono font-bold uppercase text-navy">
+  {{ section.settings.product_t_card_title }}
+</h2>
+
+<div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5"
+     data-section-id="{{ section.id }}"
+     id="product-card-{{ section.id }}">
+  <div class="product-card-tshirt-image relative border border-grey-500 p-2 rounded-md mb-2.5 overflow-hidden group cursor-pointer">
+    <a href="{{ product_t_card.url }}">
+      {% unless product_t_card.featured_media == blank %}
+        <img
+          id="product-image-{{ section.id }}"
+          src="{{ product_t_card.featured_media | image_url: width: 326 }}"
+          class="object-cover w-full h-full transition-opacity duration-300 ease-in-out group-hover:opacity-0"
+          width="326"
+          height="326"
+          alt="{{ product_t_card.featured_image.alt | escape }}"
+          data-product-id="{{ product_t_card.id }}"
+        >
+
+        <img
+          id="product-image-secondary-{{ section.id }}"
+          src="{% if product_t_card.media[1] %}{{ product_t_card.media[1] | image_url: width: 326 }}{% else %}{{ product_t_card.featured_media | image_url: width: 326 }}{% endif %}"
+          class="absolute inset-0 object-cover w-full h-full opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+          width="326"
+          height="326"
+          alt="{% if product_t_card.media[1] %}{{ product_t_card.media[1].alt | escape }}{% else %}{{ product_t_card.featured_image.alt | escape }}{% endif %}"
+          data-product-id="{{ product_t_card.id }}"
+        >
+      {% endunless %}
+      {%- if product_t_card.compare_at_price > product_t_card.price and product_t_card.available -%}
+        <span class="on-sale-badge-text">{{ sale_text }}</span>
+      {%- endif -%}
+    </a>
+  </div>
+
+  <div class="product-card-tshirt-colors flex items-center justify-start gap-4 py-6 mb-2.5" data-section="{{ section.id }}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+        {%- when 'variant_picker' -%}
+          <div data-section="{{ section.id }}">
+            {% render 'product-variant-picker', product: product_t_card, block: block, product_form_id: product_form_id, section_id: section.id %}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="product-card-tshirt-content">
+    <a href="{{ product_t_card.url }}">
+      <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
+      <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
+      <div class="product-card-tshirt-price">
+        <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
+        <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+{% comment %} Only render variant data if product has multiple variants {% endcomment %}
+{% if product_t_card and product_t_card.variants.size > 1 %}
+<script type="application/json" id="variant-images-{{ section.id }}">
+{
+  {% for variant in product_t_card.variants %}
+    {% comment %} Get the variant color (assuming it's option1) {% endcomment %}
+    {% assign variant_color = variant.option1 | downcase %}
+    {% assign secondary_img = null %}
+
+    {% comment %} Look for secondary image by matching color in ALT text {% endcomment %}
+    {% for media in product_t_card.media %}
+      {% assign media_alt = media.alt | downcase %}
+      {% comment %} Check if this image matches the variant color and is a back view {% endcomment %}
+      {% if media_alt contains variant_color and media_alt contains 'back' and media.id != variant.featured_image.id %}
+        {% assign secondary_img = media %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} If no back view found, look for any other image with same color {% endcomment %}
+    {% if secondary_img == null %}
+      {% for media in product_t_card.media %}
+        {% assign media_alt = media.alt | downcase %}
+        {% if media_alt contains variant_color and media.id != variant.featured_image.id %}
+          {% assign secondary_img = media %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    "{{ variant.id }}": {
+      "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
+      "secondary_image": {% if secondary_img %}{{ secondary_img | image_url: width: 326 | json }}{% else %}{{ product_t_card.featured_image | image_url: width: 326 | json }}{% endif %},
+      "alt": {{ variant.featured_image.alt | default: variant.title | default: product_t_card.title | json }},
+      "secondary_alt": {% if secondary_img %}{{ secondary_img.alt | json }}{% else %}{{ variant.featured_image.alt | default: variant.title | default: product_t_card.title | json }}{% endif %},
+      "title": {{ variant.title | json }},
+      "option1": {{ variant.option1 | json }},
+      "option2": {{ variant.option2 | json }},
+      "option3": {{ variant.option3 | json }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+}
+</script>
+
+<script src="{{ 'product-card-variant-switcher.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product Card T-Shirt",
+  "tag": "section",
+  "class": "product-card-tshirt-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_t_card_title",
+      "label": "Product Card Section Title",
+      "default": "Product Card T-Shirt"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select T-Shirt Product"
+    },
+    {
+      "type": "text",
+      "id": "on_sale_text",
+      "label": "On Sale Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "id": "swatch_shape",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.label",
+          "type": "select",
+          "info": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.info",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__2.label"
+            },
+            {
+              "value": "none",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.swatch_shape.options__3.label"
+            }
+          ],
+          "default": "circle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Card T-Shirt",
+      "category": "Product Card",
+      "settings": {
+        "product_t_card_title": "Product Card T-Shirt",
+        "on_sale_text": "On Sale!"
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}

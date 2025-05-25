@@ -1,0 +1,31 @@
+{% comment %}
+  TODO: Add the product card content for the t-shirt product type.
+  TODO: 1-) build a section for the entire product section
+  TODO: 2-) build the product car component
+  TODO: 3-) build the product feature image
+  TODO: 4-) build the On sale Badge
+  TODO: 5-) build the color swatches for the t-shirt
+  TODO: 6-) build the product title and description
+  TODO: 7-) build the product compare at price and price
+{% endcomment %}
+
+  <div class="product-card-tshirt-container w-[315px] h-[452px] p-3.5">
+    <div class="product-card-tshirt-image relative border-1 border-grey-500 p-2 rounded-md mb-2.5">
+        {% unless product_t_card.featured_media == blank %}
+          {{ product_t_card.featured_media | image_url: width: 326 | image_tag: class: "object-fit", height: 326, alt: product_t_card.featured_image.alt | escape }}
+        {% endunless %}
+        <span class="text-[1.375rem] leading-4 font-franklin font-semibold text-blood-orange border-1 border-blood-orange rounded-full p-3 absolute top-2 left-9">{{ sale_text }}</span>
+    </div>
+    <div class="product-card-tshirt-colors flex items-center justify-center gap-4 py-6 mb-2.5">
+      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-navy rounded-full"><span></span></div>
+      <div class="product-card-tshirt-color-swatch w-5 h-5 bg-blood-orange rounded-full"><span></span></div>
+    </div>
+    <div class="product-card-tshirt-content">
+      <p class="font-roboto font-normal leading-11 text-product-card-text">{{ product_t_card.vendor }}</p>
+      <h3 class="font-roboto font-semibold text-base text-product-card-accent leading-12">{{ product_t_card.title }}</h3>
+      <div class="product-card-tshirt-price">
+        <span class="font-robot font-normal leading-11 line-through text-product-card-text">{{ product_t_card.compare_at_price | money }}</span>
+        <span class="font-robot font-normal leading-11 text-blood-orange">{{ product_t_card.price | money }}</span>
+      </div>
+    </div>
+  </div>
