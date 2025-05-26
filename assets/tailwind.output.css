@@ -8,7 +8,6 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-white: #fff;
     --spacing: 0.25rem;
     --text-base: 1rem;
     --text-base--line-height: calc(1.5 / 1);
@@ -196,12 +195,6 @@
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
-  .top-2 {
-    top: calc(var(--spacing) * 2);
-  }
-  .left-9 {
-    left: calc(var(--spacing) * 9);
-  }
   .isolate {
     isolation: isolate;
   }
@@ -223,9 +216,6 @@
       max-width: 96rem;
     }
   }
-  .mx-auto {
-    margin-inline: auto;
-  }
   .mb-2\.5 {
     margin-bottom: calc(var(--spacing) * 2.5);
   }
@@ -244,32 +234,17 @@
   .table {
     display: table;
   }
-  .h-5 {
-    height: calc(var(--spacing) * 5);
-  }
-  .h-\[60rem\] {
-    height: 60rem;
-  }
   .h-\[452px\] {
     height: 452px;
   }
   .h-full {
     height: 100%;
   }
-  .w-5 {
-    width: calc(var(--spacing) * 5);
-  }
   .w-\[315px\] {
     width: 315px;
   }
   .w-full {
     width: 100%;
-  }
-  .max-w-\[1200px\] {
-    max-width: 1200px;
-  }
-  .flex-auto {
-    flex: auto;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
@@ -286,12 +261,6 @@
   .items-center {
     align-items: center;
   }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .justify-center {
-    justify-content: center;
-  }
   .justify-start {
     justify-content: flex-start;
   }
@@ -306,9 +275,6 @@
   .overflow-hidden {
     overflow: hidden;
   }
-  .rounded-full {
-    border-radius: calc(infinity * 1px);
-  }
   .rounded-md {
     border-radius: var(--radius-md);
   }
@@ -316,30 +282,14 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-1 {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-  .border-blood-orange {
-    border-color: var(--color-blood-orange);
-  }
   .border-grey-500 {
     border-color: var(--color-grey-500);
-  }
-  .bg-blood-orange {
-    background-color: var(--color-blood-orange);
-  }
-  .bg-navy {
-    background-color: var(--color-navy);
   }
   .object-cover {
     object-fit: cover;
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
-  }
-  .p-3 {
-    padding: calc(var(--spacing) * 3);
   }
   .p-3\.5 {
     padding: calc(var(--spacing) * 3.5);
@@ -349,9 +299,6 @@
   }
   .text-center {
     text-align: center;
-  }
-  .font-franklin {
-    font-family: var(--font-franklin);
   }
   .font-mono {
     font-family: var(--font-mono);
@@ -366,13 +313,6 @@
   .text-base {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
-  }
-  .text-\[1\.375rem\] {
-    font-size: 1.375rem;
-  }
-  .leading-4 {
-    --tw-leading: calc(var(--spacing) * 4);
-    line-height: calc(var(--spacing) * 4);
   }
   .leading-11 {
     --tw-leading: calc(var(--spacing) * 11);
@@ -405,9 +345,6 @@
   }
   .text-product-card-text {
     color: var(--color-product-card-text);
-  }
-  .text-white {
-    color: var(--color-white);
   }
   .capitalize {
     text-transform: capitalize;
@@ -469,16 +406,6 @@
       @media (hover: hover) {
         opacity: 100%;
       }
-    }
-  }
-  .max-md\:flex-col {
-    @media (width < 48rem) {
-      flex-direction: column;
-    }
-  }
-  .md\:flex {
-    @media (width >= 48rem) {
-      display: flex;
     }
   }
 }
