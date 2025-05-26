@@ -6,7 +6,7 @@
 - NPM
 - Tailwind CSS(Tailwind CLI)
 
-  when you clone the project, run `npm install` to install all the dependencies. Make sur to install the `concurrently` package. Once the dependencies are installed, run `npm run dev` to start the application.
+  when you clone the project, run `npm install` to install all the dependencies. Make sure to install the `concurrently` package. Once the dependencies are installed, run `npm run dev` to start the application.
 
 ## Acceptance Criteria
 
