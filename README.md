@@ -28,5 +28,5 @@
 below are the main files that are used to build the product card.
 
 - `product-card-tshirt.liquid` - this is the main file that is used to build the product card.
-- `product-card-variant-switcher.liquid` - this is the file that is used to build the variant switcher javascript, which allows the user to switch between variants and hover over the product card to see the secondary image.
+- `product-card-variant-switcher.js` - this is the file that is used to build the variant switcher javascript, which allows the user to switch between variants and hover over the product card to see the secondary image.
 - `tailwind.input.css` - this is the file that is used to build the tailwind css styles.
